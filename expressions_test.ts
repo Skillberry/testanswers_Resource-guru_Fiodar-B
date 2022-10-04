@@ -1,5 +1,5 @@
 import { assertStrictEquals } from "https://deno.land/std@0.158.0/testing/asserts.ts";
-import { binaryNode, constantNode, executeNode, NodeType, stringifyNode } from "./expressions.ts";
+import { binaryNode, compileNode, constantNode, executeNode, NodeType, stringifyNode } from "./expressions.ts";
 
 Deno.test("Expression tree test", () => {
     let node = binaryNode(
@@ -37,6 +37,10 @@ Deno.test("Expression tree test", () => {
     assertStrictEquals(display, expectedDisplay, "String representation doesn't match.");
 
     const expectedResult = 2;
-    const result = executeNode(node);
+    let result = executeNode(node);
+    assertStrictEquals(result, expectedResult, "Result doesn't match.");
+
+    const func = compileNode(node);
+    result = func();
     assertStrictEquals(result, expectedResult, "Result doesn't match.");
 });

@@ -126,3 +126,44 @@ export function executeNode(node: Node): number {
         }
     }
 }
+
+
+// bonus. compile expression into function. executeNode is not efficient at runtime.
+// if user need to define expression once but then call it multiple times it is worth
+// to compile an expression into function
+// the compilation is done using the 'Function' constructor. although it is better than 'eval'
+// it still need to be carefully analyzed if it's safe to use in specific circumstances
+
+/**
+ * Compiles an expression into function.
+ * @param node Expression.
+ * @returns The function.
+ */
+export function compileNode(node: Node): () => number {
+    const body = `return ${stringify(node)};`;
+    return new Function(body) as () => number;
+
+    function stringify(node: Node): string {
+        if (node.nodeType === NodeType.Constant) {
+            return node.value.toString();
+        }
+
+        const result = `(${stringify(node.left)} ${stringifyBinaryOperator(node.nodeType)} ${stringify(node.right)})`;
+        return result;
+
+        function stringifyBinaryOperator(nodeType: BinaryNode["nodeType"]) {
+            switch (nodeType) {
+                case NodeType.Add:
+                    return "+";
+                case NodeType.Divide:
+                    return "/";
+                case NodeType.Multiply:
+                    return "*";
+                case NodeType.Subtract:
+                    return "-";
+                default:
+                    throw new Error(`Invalid node type: '${nodeType}'.`);
+            }
+        }
+    }
+}

@@ -26,6 +26,13 @@ export type Node = BinaryNode | ConstantNode;
 
 // factory functions
 
+/**
+ * Creates binary expression.
+ * @param nodeType Type of binary node (operator).
+ * @param left Left argument expression.
+ * @param right Right argument expression.
+ * @returns The binary expression.
+ */
 export function binaryNode(nodeType: BinaryNode["nodeType"], left: Node, right: Node): BinaryNode {
     return {
         left,
@@ -34,6 +41,11 @@ export function binaryNode(nodeType: BinaryNode["nodeType"], left: Node, right: 
     };
 }
 
+/**
+ * Creates constant expression.
+ * @param value Constant value.
+ * @returns The constant expression.
+ */
 export function constantNode(value: number): ConstantNode {
     return {
         nodeType: NodeType.Constant,
@@ -46,6 +58,11 @@ export function constantNode(value: number): ConstantNode {
 
 // stringify visitor
 
+/**
+ * Creates a string representation of the expression.
+ * @param node Expression.
+ * @returns The string representation of the expression.
+ */
 export function stringifyNode(node: Node): string {
     if (node.nodeType === NodeType.Constant) {
         return node.value.toString();
@@ -78,6 +95,12 @@ export function stringifyNode(node: Node): string {
 }
 
 // execute visitor
+
+/**
+ * Executes the expression.
+ * @param node Expression.
+ * @returns The result of expression execution.
+ */
 export function executeNode(node: Node): number {
     if (node.nodeType === NodeType.Constant) {
         return node.value;

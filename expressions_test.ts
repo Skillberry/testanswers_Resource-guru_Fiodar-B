@@ -32,7 +32,7 @@ Deno.test("Expression tree test", () => {
         binaryNode.bind(undefined, NodeType.Multiply),
         binaryNode.bind(undefined, NodeType.Subtract),
     ];
-    node = d(a(c(7), m(s(c(3), c(2)), c(5))), c(6)); // hard to read but very short
+    node = d(a(c(7), m(s(c(3), c(2)), c(5))), c(6)); // hard to read but very compact
     display = stringifyNode(node);
     assertStrictEquals(display, expectedDisplay, "String representation doesn't match.");
 

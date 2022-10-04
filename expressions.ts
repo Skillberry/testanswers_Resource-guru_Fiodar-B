@@ -22,7 +22,7 @@ export interface ConstantNode {
 export type Node = BinaryNode | ConstantNode;
 
 
-// we go with separate functions as this solution provides very good tree shaking
+// we go with separate functions as this solution provides good tree shaking
 
 // factory functions
 
